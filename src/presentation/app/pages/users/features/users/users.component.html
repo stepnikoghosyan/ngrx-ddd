@@ -1,0 +1,33 @@
+<h1 class="text-center">Users Component</h1>
+
+<div *ngIf="vm$ | async as vm" class="container">
+  <app-user-filters></app-user-filters>
+
+  <h2>Results</h2>
+
+  <div *ngIf="!vm.isLoading; else loadingTemplate" class="list-group">
+
+    <div *ngFor="let user of vm.users" class="d-flex m-1 list-group-item shadow-sm">
+      <div class="flex-grow-1">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1 mat-headline-4">{{ user.name }}</h5>
+          </div>
+          <p class="mb-1">Email: {{ user.email }}</p>
+          <p class="mb-1">Username: {{ user.username }}</p>
+      </div>
+
+      <div class="d-flex align-items-center">
+        <a [routerLink]="['/posts', user.id]" class="btn btn-primary btn" role="button" aria-pressed="true">
+          Posts
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <ng-template #loadingTemplate>
+    <div class="d-flex justify-content-center align-items-center">
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-template>
+</div>
